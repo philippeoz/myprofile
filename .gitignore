@@ -102,3 +102,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# arquivos .ini para o python-decouple
+*.ini
+
+# pastas do vscode
+.vscode
