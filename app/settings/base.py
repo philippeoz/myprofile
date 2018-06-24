@@ -21,6 +21,7 @@ INSTALLED_APPS = [
  
     # Apps de terceiros
     # 'rest_framework',
+    'bootstrap4',
  
     # Local apps
     'backend.core',

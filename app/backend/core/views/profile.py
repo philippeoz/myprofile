@@ -3,7 +3,8 @@ from django.views.generic import UpdateView
 from django.shortcuts import redirect
 
 from backend.core.models import Usuario
-
+from backend.core.forms import UsuarioProfileForm
+from backend.core.forms import UsuarioProfileSetupForm
 
 class BaseUsuarioView:
     model = Usuario
@@ -16,8 +17,8 @@ class MyProfilePublicView(BaseUsuarioView, DetailView):
 
 
 class MyProfileEditView(BaseUsuarioView, UpdateView):
-    pass
+    form_class = UsuarioProfileForm
 
 
 class MyProfileSetupView(BaseUsuarioView, UpdateView):
-    pass
+    form_class = UsuarioProfileSetupForm
