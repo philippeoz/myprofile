@@ -70,6 +70,9 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 
     date_joined = models.DateTimeField(_('data de cadastro'), default=timezone.now)
 
+    dados_publicos_api = models.BooleanField(
+        _('Disponibiliza dados do usuário via api pública.'), default=False)
+
     objects = UserManager()
 
     EMAIL_FIELD = 'email'
