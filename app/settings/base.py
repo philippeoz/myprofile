@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     # 'rest_framework',
  
     # Local apps
+    'backend.core',
 ]
 
 MIDDLEWARE = [
@@ -51,7 +52,7 @@ DATABASES = {
     }
 }
 
-# Internationalization
+# Internacionaização
 LANGUAGE_CODE = 'pt-br'
 TIME_ZONE = 'America/Fortaleza'
 USE_I18N = True
@@ -59,3 +60,8 @@ USE_L10N = True
 USE_TZ = False
 USE_THOUSAND_SEPARATOR = True
 DATE_INPUT_FORMATS = ('%d/%m/%Y', '%Y-%m-%d')
+
+# Configurações de Login
+AUTH_USER_MODEL = 'core.Usuario'
+LOGIN_URL = '/login/'
+LOGOUT_URL = '/logout/'

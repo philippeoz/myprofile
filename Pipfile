@@ -9,6 +9,8 @@ python-decouple = "*"
 unipath = "*"
 dj-database-url = "*"
 "psycopg2-binary" = "*"
+django-imagekit = "*"
+pillow = "*"
 
 [dev-packages]
 
