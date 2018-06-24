@@ -1,0 +1,36 @@
+{% extends 'base_components/base.html' %}
+{% load staticfiles %}
+{% load utils %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <form class="form-signin" action="{% url 'login' %}" method="post" novalidate>{% csrf_token %}
+        <label for="{{ form.username.auto_id }}" class="sr-only">Email</label>
+        {{ form.username|attr:"class=form-control|required=required|autofocus=autofocus|aria-describedby=username_help|placeholder=Email" }}
+        {% if form.username.errors %}
+            {% for error in form.username.errors %}
+                <small id="username_help" class="form-text text-muted">{{ error|escape }}</small>
+            {% endfor %}
+        {% endif %}
+        <label for="{{ form.password.auto_id }}" class="sr-only">Password</label>
+        {{ form.password|attr:"class=form-control|required=required|aria-describedby=password_help|placeholder=Password" }}
+        {% if form.password.errors %}
+            {% for error in form.password.errors %}
+                <small id="password_help" class="form-text text-muted">{{ error|escape }}</small>
+            {% endfor %}
+        {% endif %}
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+                <small class="form-text text-muted">{{ error|escape }}</small>
+            {% endfor %}
+        {% endif %}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        <a href="{% url 'register' %}" class="mt-5 mb-3 text-muted">Register</a>
+    </form>
+{% endblock %}
+
+
+{% block css %}
+    <link rel="stylesheet" href="{% static '/registration/signin.css' %}">
+{% endblock %}

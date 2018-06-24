@@ -1,0 +1,43 @@
+{% extends 'base_components/base.html' %}
+{% load staticfiles %}
+{% load utils %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+    <form class="form-signin" action="{% url 'register' %}" method="post">{% csrf_token %}
+        <label for="{{ form.email.auto_id }}" class="sr-only">Email</label>
+        {{ form.email|attr:"class=form-control|required=required|autofocus=autofocus|aria-describedby=email_help|placeholder=Email" }}
+        {% if form.email.errors %}
+            {% for error in form.email.errors %}
+                <small id="email_help" class="form-text text-muted">{{ error|escape }}</small>
+            {% endfor %}
+        {% endif %}
+        <label for="{{ form.password1.auto_id }}" class="sr-only">Password</label>
+        {{ form.password1|attr:"class=form-control|required=required|aria-describedby=password1_help|placeholder=Password1" }}
+        {% if form.password1.errors %}
+            {% for error in form.password1.errors %}
+                <small id="password1_help" class="form-text text-muted">{{ error|escape }}</small>
+            {% endfor %}
+        {% endif %}
+        <label for="{{ form.password2.auto_id }}" class="sr-only">Password</label>
+        {{ form.password2|attr:"class=form-control|required=required|aria-describedby=password2_help|placeholder=Password2" }}
+        {% if form.password2.errors %}
+            {% for error in form.password2.errors %}
+                <small id="password2_help" class="form-text text-muted">{{ error|escape }}</small>
+            {% endfor %}
+        {% endif %}
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+                <small class="form-text text-muted">{{ error|escape }}</small>
+            {% endfor %}
+        {% endif %}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+        <a href="{% url 'login' %}" class="mt-5 mb-3 text-muted">Login</a>
+    </form>
+{% endblock %}
+
+
+{% block css %}
+    <link rel="stylesheet" href="{% static '/registration/signin.css' %}">
+{% endblock %}

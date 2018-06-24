@@ -15,7 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.urls import include
+from django.conf import settings
+
+import django.contrib.auth.views as auth_views
+
+from backend.core import urls as core_urls
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    path('login/', auth_views.login, {'redirect_authenticated_user': True}, name='login'),
+    path('logout/', auth_views.logout_then_login, {'login_url': settings.LOGIN_URL}, name='logout'),
+
+    path('', include(core_urls))
 ]

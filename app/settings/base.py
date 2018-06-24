@@ -65,3 +65,4 @@ DATE_INPUT_FORMATS = ('%d/%m/%Y', '%Y-%m-%d')
 AUTH_USER_MODEL = 'core.Usuario'
 LOGIN_URL = '/login/'
 LOGOUT_URL = '/logout/'
+LOGIN_REDIRECT_URL = '/myprofile/'
