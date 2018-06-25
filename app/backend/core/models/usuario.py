@@ -92,7 +92,10 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         '''
         Retorna o nome completo do usuário.
         '''
-        return f"{self.first_name} {self.last_name}"
+        return "{} {}".format(
+            self.first_name if self.first_name else '',
+            self.last_name if self.last_name else ''
+        ).strip()
 
     def get_short_name(self):
         '''
@@ -103,7 +106,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         nome_list = nome.split(" ")
 
         if len(nome_list) > 1:
-            return f"{nome_list[0]} {nome_list.pop()}"
+            return f"{nome_list[0]} {nome_list.pop()}".strip()
         return nome
 
     def email_user(self, subject, message, from_email=None, **kwargs):
@@ -111,6 +114,10 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         Envia um email para o usuário
         '''
         send_mail(subject, message, from_email, [self.email], **kwargs)
+    
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('profile-public', kwargs={'pk': self.id})
 
     def __str__(self):
         return self.get_full_name()

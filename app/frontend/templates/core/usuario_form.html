@@ -1,0 +1,52 @@
+{% extends 'base_components/base_inside.html' %}
+{% load staticfiles %}
+{% load bootstrap4 %}
+
+{% block inside_content %}
+    <form action="" method="post" class="form">
+        <h2>Editar Perfil</h2>
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% if filmes_favoritos_formset %}
+            <h4>Filmes Favoritos</h4>
+            {% for form in filmes_favoritos_formset.forms %}
+                <div id="{{ form.prefix }}-row" class="inline">
+                    {% for fld in form.hidden_fields %}{{ fld }}{% endfor %}
+                    {% if form.instance.pk %}{{ form.DELETE }}{% endif %}
+                    {% bootstrap_form form %}
+                </div>
+            {% endfor %}
+            {{ filmes_favoritos_formset.management_form }}
+        {% endif %}
+        {% buttons %}
+            <button type="submit" class="btn btn-primary">
+                Salvar
+            </button>
+        {% endbuttons %}
+    </form>
+{% endblock %}
+
+
+{% block css %}
+    <style>
+        .inline{
+            margin-bottom: 30px;
+        }
+    </style>
+{% endblock %}
+    
+
+{% block js %}
+    <script src="{% static '/formset/jquery.formset.js' %}"></script>
+    <script>
+        $(function() {
+            $('.inline').formset({
+                prefix: 'filmes_favoritos',
+                addText: 'Adicionar Filme',
+                deleteText: 'Remover Filme'
+            });
+        });
+    </script>
+{% endblock %}
+    
+    

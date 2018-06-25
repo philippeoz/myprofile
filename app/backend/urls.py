@@ -17,11 +17,11 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 from django.conf import settings
+from django.views.generic import RedirectView
 
 import django.contrib.auth.views as auth_views
 
 from backend.core import urls as core_urls
-
 
 
 urlpatterns = [
