@@ -118,6 +118,16 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     def get_absolute_url(self):
         from django.urls import reverse
         return reverse('profile-public', kwargs={'pk': self.id})
+    
+    @property
+    def idade(self):
+        if not self.data_nascimento:
+            return None
+        now = timezone.now()
+        return (now.year - self.data_nascimento.year) - int(
+            (now.month, now.day) < (
+                self.data_nascimento.month, self.data_nascimento.day)
+        )
 
     def __str__(self):
         return self.get_full_name()
