@@ -4,7 +4,7 @@ services:
     image: nginx:latest
     container_name: myprofile_nginx
     ports:
-      - "8005:8000"
+      - "80:8000"
     volumes:
       - ./app:/app
       - ./config/nginx:/etc/nginx/conf.d
