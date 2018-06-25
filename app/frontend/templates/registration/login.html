@@ -6,6 +6,7 @@
 
 {% block content %}
     <form class="form-signin" action="{% url 'login' %}" method="post" novalidate>{% csrf_token %}
+        <h3>MyProfile</h3>
         <label for="{{ form.username.auto_id }}" class="sr-only">Email</label>
         {{ form.username|attr:"class=form-control|required=required|autofocus=autofocus|aria-describedby=username_help|placeholder=Email" }}
         {% if form.username.errors %}

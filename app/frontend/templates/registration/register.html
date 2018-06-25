@@ -6,6 +6,7 @@
 
 {% block content %}
     <form class="form-signin" action="{% url 'register' %}" method="post">{% csrf_token %}
+        <h3>MyProfile</h3>
         <label for="{{ form.email.auto_id }}" class="sr-only">Email</label>
         {{ form.email|attr:"class=form-control|required=required|autofocus=autofocus|aria-describedby=email_help|placeholder=Email" }}
         {% if form.email.errors %}
