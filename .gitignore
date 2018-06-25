@@ -110,4 +110,4 @@ venv.bak/
 .vscode
 
 # pasta media
-media/*
+media/

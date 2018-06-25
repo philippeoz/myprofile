@@ -19,6 +19,7 @@ def check_first_login(request):
     if request.user.is_anonymous:
         return redirect('login')
     first_login = request.session.get('first_login', None)
+    request.session['first_login'] = False
     return redirect(
         'profile-edit' if first_login else 'profile-public',
         pk=request.user.id
@@ -81,7 +82,7 @@ class MyProfileEditView(BaseUsuarioView, LoginRequiredMixin, UpdateView):
     def formset_validation(self, formset):
         for form in formset:
             model_object = form.update_create_delete_in_formset()
-            if model_object is not None:
+            if model_object is not None and model_object.titulo:
                 model_object.usuario = self.object
                 model_object.save()
 

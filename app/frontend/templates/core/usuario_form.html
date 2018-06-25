@@ -4,8 +4,10 @@
 
 {% block inside_content %}
     <form action="" enctype="multipart/form-data" autocomplete="off" novalidate method="post" class="form">
-        <h2>Editar Perfil</h2>
-        <div class="show_foto" style="background-image: url('{% if form.instance.foto %}{{ form.instance.foto.url }}{% else %}display: none;{% endif %}');">
+        <h2>{% if form.dados_publicos_api %}Configurar{% else %}Editar{% endif %} Perfil</h2>
+        {% if form.foto %}
+            <div class="show_foto" style="{% if form.instance.foto %}background-image: url('{{ form.instance.foto.url }}');{% else %}display: none;{% endif %}">
+        {% endif %}
         </div>
         {% csrf_token %}
         {% bootstrap_form form %}

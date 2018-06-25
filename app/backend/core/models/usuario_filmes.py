@@ -11,7 +11,8 @@ class UsuarioFilmeFavorito(models.Model):
         on_delete=models.CASCADE,
         related_name='filmes_favoritos'
     )
-    titulo = models.CharField(_('Título do Filme'), max_length=255)
+    titulo = models.CharField(
+        _('Título do Filme'), max_length=255, blank=True, null=True)
 
     class Meta:
         verbose_name = _('filme favorito do usuário')
