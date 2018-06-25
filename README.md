@@ -1,8 +1,7 @@
 # MyProfile
-___
 Aplicação no estilo perfil de rede social.
 
-[Aqui temos uma demo. (Temporariamente)]('http://myprofile.valfok.com')
+[Aqui temos uma demo. (Temporariamente)](http://myprofile.valfok.com)
 
 O projeto foi desenvolvido de acordo com as especificações a seguir:
     
@@ -33,13 +32,13 @@ Clonar o projeto:
 
 Separei essas duas formas de executar:
 -  Executando com Docker:
-    1. [Instalar o docker]('https://docs.docker.com/install/')
-    2. [Instalar o docker-compose]('https://docs.docker.com/compose/install/')
+    1. [Instalar o docker](https://docs.docker.com/install/)
+    2. [Instalar o docker-compose](https://docs.docker.com/compose/install/)
     3. `cd myprofile` para entrar no diretório do projeto.
     4. `docker-compose up --build` ou `docker-compose --build -d` (daemon)
 - Executando com virtualenv:
-    1. [Instalar o Postgresql]('https://www.postgresql.org/download/') e criar um banco de dados (chamaremos de `database`).
-    2. [Instalar o Pipenv]('https://github.com/pypa/pipenv'): `pip install pipenv`
+    1. [Instalar o Postgresql](https://www.postgresql.org/download/) e criar um banco de dados (chamaremos de `database`).
+    2. [Instalar o Pipenv](https://github.com/pypa/pipenv): `pip install pipenv`
     3. Entre no diretório do projeto: `cd myprofile`
     4. `pipenv install`
     5. `cd app`
@@ -49,7 +48,7 @@ Separei essas duas formas de executar:
         DEBUG=True
         DATABASE_URL=postgres://username:password@host/database
         ```
-        Existem mais variáveis de ambiente que podem ser configuradas no `settings.ini`, veja nos arquivos do [módulo settings]('https://github.com/philippeoz/myprofile/tree/master/app/settings').
+        Existem mais variáveis de ambiente que podem ser configuradas no `settings.ini`, veja nos arquivos do [módulo settings](https://github.com/philippeoz/myprofile/tree/master/app/settings).
     7. Daqui você pode optar por entrar na virtualenv `pipenv shell` ou executar os comandos fora da virtualenv `pipenv run  python ...`, o exemplo será fora da env, dentro dela basta remover o `pipenv run`.
     8. `pipenv run python manage.py migrate`
     9. `pipenv run python manage.py runserver`
