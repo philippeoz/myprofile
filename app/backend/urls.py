@@ -17,11 +17,13 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 from django.conf import settings
+from django.conf.urls.static import static
 from django.views.generic import RedirectView
 
 import django.contrib.auth.views as auth_views
 
 from backend.core import urls as core_urls
+from backend.api import urls as api_urls
 
 
 urlpatterns = [
@@ -30,5 +32,9 @@ urlpatterns = [
     path('login/', auth_views.login, {'redirect_authenticated_user': True}, name='login'),
     path('logout/', auth_views.logout_then_login, {'login_url': settings.LOGIN_URL}, name='logout'),
 
-    path('', include(core_urls))
+    path('', include(core_urls)),
+    path('api/', include(api_urls))
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

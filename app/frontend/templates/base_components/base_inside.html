@@ -5,19 +5,21 @@
 {% block content %}
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a class="navbar-brand" href="{% url 'profile-public' user.id %}">MyProfile</a>
+        <a class="navbar-brand" href="{% url 'profile' %}">MyProfile</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
   
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
+            {% if not user.is_anonymous %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'profile-edit' user.id %}">Editar Perfil</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'profile-setup' user.id %}">Configurações</a>
                 </li>
+            {% endif %}
             </ul>
             {% if user.first_name %}
                 <span class="navbar-brand">Olá {{ user.get_short_name }}!</span>

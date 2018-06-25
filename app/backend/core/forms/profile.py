@@ -37,9 +37,11 @@ class UsuarioFilmeFavoritoForm(forms.ModelForm):
     """
     Definição de Form para Filmes Favoritos dos Usuários
     """
+    id = forms.IntegerField(required=False)
+
     class Meta:
         model = UsuarioFilmeFavorito
-        fields = ('titulo', )
+        fields = '__all__'
     
     def update_create_delete_in_formset(self):
         delete = self.cleaned_data.get('DELETE', None)

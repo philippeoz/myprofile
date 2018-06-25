@@ -12,6 +12,7 @@ dj-database-url = "*"
 django-imagekit = "*"
 pillow = "*"
 "django-bootstrap4" = "*"
+djangorestframework = "*"
 
 [dev-packages]
 

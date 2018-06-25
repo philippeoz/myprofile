@@ -19,3 +19,6 @@ class UsuarioFilmeFavorito(models.Model):
         permissions = (
             ("view_usuario_filme_favorito", "Can view filmes favoritos de usuários"),
         )
+    
+    def __str__(self):
+        return self.titulo.strip()

@@ -1,5 +1,6 @@
 from django.views.generic import DetailView
 from django.views.generic import UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.db import transaction
 from django.shortcuts import redirect
@@ -15,6 +16,8 @@ def check_first_login(request):
     Redireciona o usuário para Edição do Profile
     em caso de primeiro login
     """
+    if request.user.is_anonymous:
+        return redirect('login')
     first_login = request.session.get('first_login', None)
     return redirect(
         'profile-edit' if first_login else 'profile-public',
@@ -30,7 +33,7 @@ class MyProfilePublicView(BaseUsuarioView, DetailView):
     pass
 
 
-class MyProfileEditView(BaseUsuarioView, UpdateView):
+class MyProfileEditView(BaseUsuarioView, LoginRequiredMixin, UpdateView):
     form_class = UsuarioProfileForm
 
     def get_initial(self):
@@ -45,7 +48,9 @@ class MyProfileEditView(BaseUsuarioView, UpdateView):
             filmes_favoritos.extra = f_count if f_count else 1
             for index, filme_favorito in enumerate(self.object.filmes_favoritos.all()):
                 filmes_favoritos.forms[index].initial = filme_favorito.__dict__
-                filmes_favoritos.forms[index].initial['usuario'] = filme_favorito.usuario.id
+                filmes_favoritos.forms[index].initial['usuario'] = self.request.user.id
+            for filme_favorito in filmes_favoritos.extra_forms:
+                filme_favorito.initial['usuario'] = self.request.user.id
             kwargs['filmes_favoritos_formset'] = filmes_favoritos
         return super(MyProfileEditView, self).get_context_data(**kwargs)
 
@@ -56,6 +61,7 @@ class MyProfileEditView(BaseUsuarioView, UpdateView):
         if form.is_valid() and filmes_favoritos_formset.is_valid():
             return self.form_valid(form, filmes_favoritos_formset)
         else:
+            import pdb; pdb.set_trace()
             return self.form_invalid(form, filmes_favoritos_formset)
 
     def form_valid(self, form, filmes_favoritos_formset):       
@@ -75,5 +81,5 @@ class MyProfileEditView(BaseUsuarioView, UpdateView):
                 model_object.save()
 
 
-class MyProfileSetupView(BaseUsuarioView, UpdateView):
+class MyProfileSetupView(BaseUsuarioView, LoginRequiredMixin, UpdateView):
     form_class = UsuarioProfileSetupForm

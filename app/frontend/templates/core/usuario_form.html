@@ -3,7 +3,7 @@
 {% load bootstrap4 %}
 
 {% block inside_content %}
-    <form action="" method="post" class="form">
+    <form action="" enctype="multipart/form-data" autocomplete="off" novalidate method="post" class="form">
         <h2>Editar Perfil</h2>
         {% csrf_token %}
         {% bootstrap_form form %}
@@ -11,9 +11,10 @@
             <h4>Filmes Favoritos</h4>
             {% for form in filmes_favoritos_formset.forms %}
                 <div id="{{ form.prefix }}-row" class="inline">
-                    {% for fld in form.hidden_fields %}{{ fld }}{% endfor %}
-                    {% if form.instance.pk %}{{ form.DELETE }}{% endif %}
-                    {% bootstrap_form form %}
+                    {{ form.DELETE }}
+                    {% bootstrap_field form.titulo %}
+                    {{ form.usuario.as_hidden }}
+                    {{ form.id.as_hidden }}
                 </div>
             {% endfor %}
             {{ filmes_favoritos_formset.management_form }}
@@ -43,7 +44,8 @@
             $('.inline').formset({
                 prefix: 'filmes_favoritos',
                 addText: 'Adicionar Filme',
-                deleteText: 'Remover Filme'
+                deleteText: 'Remover Filme',
+                keepFieldValues: 'input[id *= "usuario"]'
             });
         });
     </script>

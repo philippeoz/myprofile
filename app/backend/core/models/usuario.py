@@ -17,14 +17,14 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     # foto, nome, idade, sexo, país, estado, cidade e filmes favoritos
     # Foto
     foto = ProcessedImageField(
-        upload_to='fotos',
+        upload_to='fotos/',
         format='JPEG',
         options={'quality': 100},
         null=True,
         blank=True
     )
     foto_thumbnail = ImageSpecField(
-        source='foto', format='JPEG', options={'quality': 60})
+        source='foto', format='JPEG', options={'quality': 50})
     data_nascimento = models.DateField(
         _('data de nascimento'),
         auto_now=False,
