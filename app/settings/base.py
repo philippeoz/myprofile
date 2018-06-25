@@ -44,13 +44,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 PROJECT_DB_URL = config('DATABASE_URL', cast=db_url)
 DATABASES = {  
-    'default': PROJECT_DB_URL if PROJECT_DB_URL else {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'HOST': 'db',
-        'PORT': 5432,
-    }
+    'default': PROJECT_DB_URL,
 }
 
 # Internacionaização
