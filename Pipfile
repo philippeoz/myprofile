@@ -13,6 +13,7 @@ django-imagekit = "*"
 pillow = "*"
 "django-bootstrap4" = "*"
 djangorestframework = "*"
+gunicorn = "*"
 
 [dev-packages]
 

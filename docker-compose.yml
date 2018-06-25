@@ -1,0 +1,47 @@
+version: '2'  
+services:  
+  nginx:
+    image: nginx:latest
+    container_name: myprofile_nginx
+    ports:
+      - "8005:8000"
+    volumes:
+      - ./app:/app
+      - ./config/nginx:/etc/nginx/conf.d
+      - static-data:/staticfiles
+      - media-data:/mediafiles
+    depends_on:
+      - django
+    restart: always
+
+  django:
+    build: .
+    container_name: myprofile_django
+    command: bash -c "/wait_for_it.sh db:5432 && /django_start.sh"
+    depends_on:
+      - db
+    volumes:
+      - ./app:/app
+      - static-data:/app/frontend/staticfiles
+      - media-data:/app/media
+    expose:
+      - "8000"
+    restart: always
+    environment:
+      DB_CONNECTION: pgsql
+      DB_HOST: postgresql
+      DB_PORT: 5432
+      DB_DATABASE: postgres
+      DB_USERNAME: postgres
+      DEBUG: "False"
+      DATABASE_URL: postgres://postgres@db/postgres
+
+  db:
+    image: postgres:latest
+    container_name: myprofile_postgres
+    environment:         
+      - POSTGRES_DB=postgres
+
+volumes:
+  static-data:
+  media-data:
