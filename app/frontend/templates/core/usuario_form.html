@@ -5,6 +5,8 @@
 {% block inside_content %}
     <form action="" enctype="multipart/form-data" autocomplete="off" novalidate method="post" class="form">
         <h2>Editar Perfil</h2>
+        <div class="show_foto" style="background-image: url('{% if form.instance.foto %}{{ form.instance.foto.url }}{% else %}display: none;{% endif %}');">
+        </div>
         {% csrf_token %}
         {% bootstrap_form form %}
         {% if filmes_favoritos_formset %}
@@ -30,9 +32,8 @@
 
 {% block css %}
     <style>
-        .inline{
-            margin-bottom: 30px;
-        }
+        .inline{margin-bottom: 30px;}
+        .show_foto{width: 250px; height: 250px; background-repeat: no-repeat; background-size: cover;}
     </style>
 {% endblock %}
     
@@ -40,6 +41,28 @@
 {% block js %}
     <script src="{% static '/formset/jquery.formset.js' %}"></script>
     <script>
+        function set_foto_url(url){
+            $('.show_foto')[0].style.backgroundImage = 'url('+ url +')';
+        }
+
+        function readURL(input, on_modal) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('.show_foto').removeAttr('src');
+                    set_foto_url(e.target.result);
+                    $('.show_foto').fadeIn();
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                $('.show_foto').fadeOut();
+            }
+        }
+
+        $('#id_foto').on('change', function(){
+            readURL(this);
+        });
+
         $(function() {
             $('.inline').formset({
                 prefix: 'filmes_favoritos',

@@ -36,6 +36,11 @@ class MyProfilePublicView(BaseUsuarioView, DetailView):
 class MyProfileEditView(BaseUsuarioView, LoginRequiredMixin, UpdateView):
     form_class = UsuarioProfileForm
 
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.pk != kwargs.get('pk'):
+            return redirect('profile')
+        return super(MyProfileEditView, self).dispatch(request, *args, **kwargs)
+    
     def get_initial(self):
         initial = super(MyProfileEditView, self).get_initial()
         self.object = self.get_object()

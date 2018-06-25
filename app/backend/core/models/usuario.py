@@ -9,6 +9,7 @@ from imagekit.models import ProcessedImageField
 from imagekit.models import ImageSpecField
 
 from backend.core.manager import UserManager
+from backend.utils.enums import SexoEnum
 
 
 class Usuario(AbstractBaseUser, PermissionsMixin):
@@ -32,7 +33,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         blank=True,
         null=True
     )
-    sexo = models.NullBooleanField()
+    sexo = models.IntegerField(choices=SexoEnum.choices(), blank=True, null=True)
     pais = models.CharField(_('país'), max_length=255, blank=True, null=True)
     estado = models.CharField(_('estado'), max_length=255, blank=True, null=True)
     cidade = models.CharField(_('cidade'), max_length=255, blank=True, null=True)
@@ -127,6 +128,16 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         return (now.year - self.data_nascimento.year) - int(
             (now.month, now.day) < (
                 self.data_nascimento.month, self.data_nascimento.day)
+        )
+    
+    @property
+    def onde_mora(self):
+        return ', '.join(
+            local for local in [
+                self.cidade, 
+                self.estado,
+                self.pais
+            ] if local
         )
 
     def __str__(self):

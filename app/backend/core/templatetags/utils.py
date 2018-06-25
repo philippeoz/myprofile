@@ -1,5 +1,6 @@
 from django import template
 
+from backend.utils.enums import SexoEnum
 
 register = template.Library()
 
@@ -14,3 +15,10 @@ def attr(field, attrs):
     return field.as_widget(
         attrs=attrs_dict
     )
+
+
+@register.filter
+def sexo(value):
+    if value:
+        return SexoEnum.get_name(value)
+    return ''

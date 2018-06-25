@@ -1,1 +1,37 @@
 {% extends 'base_components/base_inside.html' %}
+{% load utils %}
+
+{% block inside_content %}
+    <div class="col-md-12">
+        <h3>{{ usuario.get_full_name }}</h3>
+        <div class="row profile">
+            <div class="col-md-5">
+                <img src="{{ usuario.foto_thumbnail.url }}" alt="foto" width="100%">
+            </div>
+            <div class="col-md-7">
+                {% if usuario.sexo %}
+                    <p>É do sexo {{ usuario.sexo|sexo|lower }}.</p>
+                {% endif %}
+                {% if usuario.onde_mora %}
+                    <p>Mora em {{ usuario.onde_mora }}.</p>
+                {% endif %}
+                {% if usuario.data_nascimento %}
+                    <p>Tem {{ usuario.idade }} anos.</p>
+                {% endif %}
+            </div>
+        </div>
+        <h4>Filmes favoritos</h4>
+        <ul>
+            {% for filme in usuario.filmes_favoritos.all %}
+                <li>{{ filme.titulo }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+{% block css %}
+    <style>
+        .profile{margin-bottom: 30px;}
+    </style>    
+{% endblock %}
+    
